@@ -144,7 +144,7 @@ def azurite(test_container):  # pragma: no cover
 
 
 @pytest.mark.skipif(not azurite_available(), reason="Azurite not available")
-def test_write_catalog_to_azurite(azurite, catalog_dict, blob_uri):
+def test_write_catalog_to_azurite(azurite, catalog_dict, blob_uri):  # pragma: no cover
     BlobStacIO.conn_str = AZURITE_CONN_STR
 
     catalog = pystac.Catalog.from_dict(catalog_dict)
