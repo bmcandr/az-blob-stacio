@@ -16,3 +16,6 @@ dev-dependencies = [
     "pytest>=8.3.3",
     "ruff>=0.7.0",
 ]
+
+[tool.coverage]
+omit = ["tests/test_az_blob_stacio.py::test_write_catalog_to_azurite"]
