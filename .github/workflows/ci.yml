@@ -59,7 +59,7 @@ jobs:
       - name: Prepare ./coverage.xml
         # Ignore the configured fail-under to ensure we upload the coverage report. We
         # will trigger a failure for coverage drops in a later job
-        run: coverage xml --fail-under 0
+        run: uv run coverage xml --fail-under 0
 
       - name: Upload All coverage to Codecov
         uses: codecov/codecov-action@v4
@@ -72,4 +72,4 @@ jobs:
       - name: Check for coverage drop
         # This will use the configured fail-under, causing this job to fail if the
         # coverage drops.
-        run: coverage report
+        run: uv run coverage report
