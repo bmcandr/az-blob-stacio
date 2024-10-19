@@ -1,7 +1,7 @@
 [project]
 name = "az-blob-stacio"
 version = "0.1.0"
-description = "An implementation of `pystac`'s `StacIO` that enables reading static STAC catalogs stored in Azure Blob Storage."
+description = "An implementation of `pystac`'s `StacIO` for reading static STACs stored in Azure Blob Storage."
 readme = "README.md"
 authors = [
     { name = "Brendan McAndrew", email = "brendan.mcandrew.88@gmail.com" },
