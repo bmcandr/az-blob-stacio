@@ -20,22 +20,6 @@ def test_container():
 
 
 @pytest.fixture
-def azurite(test_container):
-    # Create a container for Azurite for the first run
-    blob_service_client = BlobServiceClient.from_connection_string(AZURITE_CONN_STR)
-
-    if blob_service_client.get_container_client(test_container).exists():
-        blob_service_client.delete_container(test_container)
-    try:
-        blob_service_client.create_container(test_container)
-        yield True
-    except ResourceExistsError as e:
-        print(e)
-    finally:
-        blob_service_client.delete_container(test_container)
-
-
-@pytest.fixture
 def blob_uri() -> str:
     return "https://myaccount.blob.core.windows.net/mycontainer/path/to/catalog.json"
 
@@ -135,12 +119,28 @@ def test_write_catalog(catalog_dict, blob_uri):
 ######
 
 
-def azurite_available() -> bool:
+def azurite_available() -> bool:  # pragma: no cover
     try:
         requests.get("http://127.0.0.1:10000")
     except:  # noqa
         return False
     return True
+
+
+@pytest.fixture
+def azurite(test_container):  # pragma: no cover
+    # Create a container for Azurite for the first run
+    blob_service_client = BlobServiceClient.from_connection_string(AZURITE_CONN_STR)
+
+    if blob_service_client.get_container_client(test_container).exists():
+        blob_service_client.delete_container(test_container)
+    try:
+        blob_service_client.create_container(test_container)
+        yield True
+    except ResourceExistsError as e:
+        print(e)
+    finally:
+        blob_service_client.delete_container(test_container)
 
 
 @pytest.mark.skipif(not azurite_available(), reason="Azurite not available")
