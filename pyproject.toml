@@ -1,0 +1,17 @@
+[project]
+name = "az-blob-stacio"
+version = "0.1.0"
+description = "An implementation of `pystac`'s `StacIO` that enables reading static STAC catalogs stored in Azure Blob Storage."
+readme = "README.md"
+authors = [
+    { name = "Brendan McAndrew", email = "brendan.mcandrew.88@gmail.com" },
+]
+requires-python = ">=3.10"
+dependencies = ["azure-storage-blob>=12.23.1", "pystac>=1.11.0"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest-cov>=5.0.0",
+    "pytest>=8.3.3",
+    "ruff>=0.7.0",
+]

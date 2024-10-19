@@ -1,0 +1,21 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# pytest
+.coverage
+
+# Virtual environments
+.python-version
+.venv
+
+# vscode
+.vscode
+
+# azurite
+__azurite_*
+__blobstorage__/*
