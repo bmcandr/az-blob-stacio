@@ -3,6 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/az-blob-stacio.svg)](https://badge.fury.io/py/az-blob-stacio)
 ![CI](https://github.com/bmcandr/az-blob-stacio/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/github/bmcandr/az-blob-stacio/graph/badge.svg?token=CEJTBDWZZE)](https://codecov.io/github/bmcandr/az-blob-stacio)
+![GitHub License](https://img.shields.io/github/license/bmcandr/az-blob-stacio)
 
 An implementation of `pystac`'s `StacIO` for reading static STACs stored in Azure Blob Storage. See [the pystac docs](https://pystac.readthedocs.io/en/stable/concepts.html#i-o-in-pystac) for more info.
 
