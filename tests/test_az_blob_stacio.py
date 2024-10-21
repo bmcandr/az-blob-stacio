@@ -9,7 +9,7 @@ from azure.core.exceptions import ResourceExistsError
 from azure.storage.blob import BlobServiceClient
 
 from az_blob_stacio import BlobStacIO
-from az_blob_stacio import blob_stacio as blob_stacio_ctx
+from az_blob_stacio import custom_stacio as blob_stacio_ctx
 
 AZURITE_CONN_STR = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;"  # noqa
 
@@ -58,7 +58,9 @@ def test_get_blob_client_with_conn_str(blob_stacio, blob_uri):
         blob_stacio,
         "conn_str",
         "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=super-secret-key==;",  # noqa
-    ), patch("az_blob_stacio.BlobClient.from_connection_string") as mock_factory_func:
+    ), patch(
+        "az_blob_stacio.az_blob_stacio.BlobClient.from_connection_string"
+    ) as mock_factory_func:
         _ = blob_stacio._get_blob_client(blob_uri)
         mock_factory_func.assert_called_once()
 

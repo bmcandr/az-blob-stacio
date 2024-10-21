@@ -2,7 +2,7 @@ import os
 import re
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any
 from urllib.parse import urlparse
 
 import pystac
@@ -13,12 +13,12 @@ from azure.core.credentials import (
     TokenCredential,
 )
 from azure.storage.blob import BlobClient, ContentSettings
-from pystac import Link
+from pystac import Link, StacIO
 from pystac.stac_io import DefaultStacIO
 
 AzureCredentialType = (
     str
-    | Dict[str, str]
+    | dict[str, str]
     | AzureNamedKeyCredential
     | AzureSasCredential
     | TokenCredential
@@ -32,15 +32,15 @@ class BlobStacIO(DefaultStacIO):
     from/to Azure Blob storage.
     """
 
-    conn_str: Optional[str] = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-    credential: Optional[AzureCredentialType] = None
+    conn_str: str | None = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+    credential: AzureCredentialType | None = None
     overwrite: bool = True
 
     def _is_blob_uri(self, href: str) -> bool:
         """Check if href matches Blob URI pattern."""
         return re.search(BLOB_URI_PATTERN, href) is not None
 
-    def _parse_blob_uri(self, uri: str) -> Tuple[str, str]:
+    def _parse_blob_uri(self, uri: str) -> tuple[str, str]:
         """Parse the container and blob name from a Blob URI.
 
         Parameters
@@ -87,7 +87,7 @@ class BlobStacIO(DefaultStacIO):
         else:
             raise ValueError("One of `conn_str` or `credential` must be set.")
 
-    def read_text(self, source: Union[str, Link], *args: Any, **kwargs: Any) -> str:
+    def read_text(self, source: str | Link, *args: Any, **kwargs: Any) -> str:
         if isinstance(source, Link):
             source = source.href
         if self._is_blob_uri(source):
@@ -97,9 +97,7 @@ class BlobStacIO(DefaultStacIO):
         else:
             return super().read_text(source, *args, **kwargs)
 
-    def write_text(
-        self, dest: Union[str, Link], txt: str, *args: Any, **kwargs: Any
-    ) -> None:
+    def write_text(self, dest: str | Link, txt: str, *args: Any, **kwargs: Any) -> None:
         """Write STAC Objects to Blob storage. Note: overwrites by default."""
 
         if isinstance(dest, Link):
@@ -116,7 +114,7 @@ class BlobStacIO(DefaultStacIO):
 
 
 @contextmanager
-def blob_stacio(blob_stacio: type[BlobStacIO]):
-    pystac.StacIO.set_default(blob_stacio)
+def custom_stacio(stacio: type[StacIO]):
+    pystac.StacIO.set_default(stacio)
     yield
     pystac.StacIO.set_default(pystac.stac_io.DefaultStacIO)

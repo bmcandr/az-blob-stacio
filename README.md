@@ -35,11 +35,11 @@ Or use a context manager to temporarily set `BlobStacIO` as the default `StacIO`
 ```python
 import os
 
-from az_blob_stacio import BlobStacIO, blob_stacio
+from az_blob_stacio import BlobStacIO, custom_stacio
 
 BlobStacIO.conn_str = os.environ["AZURE_STORAGE_CONNECTION_STRING"]
 
-with blob_stacio(BlobStacIO):
+with custom_stacio(BlobStacIO):
     catalog = pystac.Catalog.from_file("https://myaccount.blob.core.windows.net/mycontainer/catalog.json")
 ```
 
