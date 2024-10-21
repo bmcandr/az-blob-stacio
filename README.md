@@ -4,9 +4,14 @@
 
 An implementation of `pystac`'s `StacIO` for reading static STACs stored in Azure Blob Storage.
 
+## Installation
+
+* `pip install az-blob-stacio`
+* `uv add az-blob-stacio`
+
 ## Usage
 
-Set the global default `StacIO`:
+Set the global default `StacIO` to `BlobStacIO`:
 
 ```python
 import os
@@ -20,7 +25,7 @@ pystac.StacIO.set_default(BlobStacIO)
 catalog = pystac.Catalog.from_file("https://myaccount.blob.core.windows.net/mycontainer/catalog.json")
 ```
 
-Use a context manager to temporarily `BlobStacIO` and reset to `DefaultStacIO` upon exiting the context:
+Or use a context manager to temporarily set `BlobStacIO` as the default `StacIO` and reset to `DefaultStacIO` upon exiting the context:
 
 ```python
 import os
@@ -37,10 +42,10 @@ Overwrite behavior is configurable by setting `BlobStacIO.overwrite` (defaults t
 
 ### Credentials
 
-Azure Blob Storage credentials can be provided by providing either:
+Azure Blob Storage credentials can be provided by setting either of the following class variables:
 
-* a storage connection string as shown above or by setting `AZURE_STORAGE_CONNECTION_STRING` in your environment
-* a credential object that provides access to the storage account hosting the static STAC
+* `BlobStacIO.conn_str`: a [connection string](https://learn.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string#configure-a-connection-string-for-an-azure-storage-account) for the Azure storage account. Checks for `AZURE_STORAGE_CONNECTION_STRING` in your environment by default.
+* `BlobStacIO.credential`: a [credential](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#credentials) that provides access to the storage account hosting the static STAC.
 
     ```python
     from azure.core.credentials import AzureSasCredential
