@@ -1,11 +1,14 @@
 # Azure Blob Storage `StacIO`
 
-![example workflow](https://github.com/bmcandr/az-blob-stacio/actions/workflows/ci.yml/badge.svg)
+[![PyPI version](https://badge.fury.io/py/az-blob-stacio.svg)](https://badge.fury.io/py/az-blob-stacio)
+![CI](https://github.com/bmcandr/az-blob-stacio/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/github/bmcandr/az-blob-stacio/graph/badge.svg?token=CEJTBDWZZE)](https://codecov.io/github/bmcandr/az-blob-stacio)
 
 An implementation of `pystac`'s `StacIO` for reading static STACs stored in Azure Blob Storage.
 
 ## Installation
+
+Either:
 
 * `pip install az-blob-stacio`
 * `uv add az-blob-stacio`
